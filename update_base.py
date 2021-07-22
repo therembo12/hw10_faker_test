@@ -10,16 +10,15 @@ connection = psycopg2.connect(
     user=USER, password=PASSWORD, host=HOST, port=PORT, database='shop_db')
 cursor = connection.cursor()
 cursor.execute('SELECT VERSION()')
-add_city = """
-    INSERT INTO city (id,city_name,city_id) VALUES (%s, %s)
-"""
-city_list = []
-city_tuple = ()
+# add_city = """
+#     INSERT INTO city (id,city_name,city_id) VALUES (%s, %s)
+# """
 for _ in range(50):
-    city_tuple[_] = f"{fake.city()}"
-    city_list.append(city_tuple[_])
-cursor.execute(add_city, city_tuple)
-print(city_tuple)
+    add_city = """
+    INSERT INTO city (id,city_name,country_id) VALUES (%s,%s)
+"""
+    cursor.executemany(add_city, fake.city())
+
 connection.commit()
 print('Commit Success')
 if connection:
