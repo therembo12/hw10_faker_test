@@ -1,6 +1,6 @@
 # Empoloyee interface
 import psycopg2
-from settings import *
+from config import *
 from connection import Connection
 
 
